@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="elemento">
+
+        <button v-on:click="incrementar(2, $event)">Incrementar</button>
+        <button v-on:click="contador++">Incrementar</button>
+         <p>{{contador > 10 ? 'maior q 10' : 'menor q 10'}}</p>
+         <p v-on:mousemove="atualizarCoord">Cordenadas: {{x}} / {{y}}
+             - <span v-on:mousemove.stop="" style="background-color: lightgreen;">Dead spot</span>
+         </p>
+         <input v-model:value="meuinput" type="text" v-on:keyup.enter="alertMe">
+    </div>
+
+   <script>
+   
+        var meuApp = new Vue({
+            el:"#elemento",
+            data:{
+                contador: 0,
+                x: 0,
+                y: 0,
+                meuinput: ""
+            },
+            methods: {
+                incrementar: function(step, $event){
+                    this.contador += step;
+                },
+                atualizarCoord: function(event){
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                dummy: function(event){
+                    event.stopPropagation();
+                },
+                alertMe: function(){
+                    alert(this.meuinput);
+                }
+                    
+                
+            },
+        });
+
+   </script>
+
+</body>
+</html>

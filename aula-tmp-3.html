@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+
+</head>
+<body>
+    
+    <div id="elemento">
+        <button v-on:click="contador++" >Incrementar</button>
+        <button v-on:click="contador--">Decrementar</button>
+        <p>Contador: {{ contador }}</p>
+        <p>Resultado: {{ resultadoC }}</p>
+    </div>
+
+
+    <script>
+        var meuApp = new Vue({
+            el: "#elemento",
+            data:{
+                contador: 0
+            },
+
+            computed: {
+                resultadoC: function(){
+                    return this.contador > 5 ? 'Maior q 5' : 'Menor q 5';
+                }
+                
+            },
+
+            // methods: {
+            //     resultado: function(){
+            //         return this.contador > 5 ? 'Maior q 5' : 'Menor q 5';
+            //     }
+            // },
+        });
+    
+    </script>
+
+
+
+</body>
+</html>

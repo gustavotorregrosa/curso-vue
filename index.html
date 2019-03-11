@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" v-on:input="changeTitle">
+        <h3 v-once>{{ title }}</h3>
+        <p>{{ dizerOi() }} - <a v-bind:href="meulink">Hexa</a></p>
+        <hr>
+        <p v-html="finishedLink"></p>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                title: 'Hello vue',
+                meulink: 'https://www.hexa-digital.com',
+                finishedLink: '<a href="http://www.google.com">Goooogle</a>'
+            },
+            methods:{
+                changeTitle: function(event){
+                    this.title = event.target.value;
+                },
+                dizerOi: function(){
+                    return this.title;
+                }
+
+            }
+        })
+
+    </script>
+    
+</body>
+</html>
