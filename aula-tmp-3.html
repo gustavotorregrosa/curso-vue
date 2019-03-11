@@ -11,7 +11,7 @@
 <body>
     
     <div id="elemento">
-        <button v-on:click="contador++" >Incrementar</button>
+        <button @click="contador++" >Incrementar</button>
         <button v-on:click="contador--">Decrementar</button>
         <p>Contador: {{ contador }}</p>
         <p>Resultado: {{ resultadoC }}</p>
@@ -31,6 +31,15 @@
                 }
                 
             },
+
+            // watch:{
+            //     contador: function(value){
+            //         let vm = this;
+            //         setTimeout(function(){
+            //             vm.contador = 0;
+            //         },2000);
+            //     }
+            // }
 
             // methods: {
             //     resultado: function(){
