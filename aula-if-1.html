@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="exercicio">
+        <p v-if="show">Mensagem 1</p>
+        <p v-else>Mensagem 2</p>
+        <template v-if="show">
+            <p>Coisas da msg 1</p>
+            <p>Coisas da msg 1</p>
+            <p>Coisas da msg 1</p>
+            <p>Coisas da msg 1</p>
+        </template>
+        <p>Mensagem 3</p>
+        <button @click="show = !show">Trocar</button>
+    </div>
+    
+<script>
+var meuApp = new Vue({
+    el: "#exercicio",
+    data:{
+        show: true,
+    }
+});
+
+</script>
+
+</body>
+</html>

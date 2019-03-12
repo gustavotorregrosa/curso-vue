@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+       
+        <div id="exercise">
+          <!-- 1) Hook up the button to toggle the display of the two paragraphs. Use both v-if and v-show and inspect the elements to see the difference -->
+          <div>
+            <button @click="mostrador = !mostrador">Toggle</button>
+            <p v-if="mostrador">You either see me 1...</p>
+            <p v-else>...or me 1</p>
+            <p v-show="mostrador">You either see me 2 ...</p>
+            <p v-show="!mostrador">...or me 2</p>
+          </div>
+          <hr>
+          <!-- 2) Output an <ul> of array elements of your choice. Also print the index of each element. -->
+          <ul>
+            <li v-for="prim in primeiro">{{ prim }}</li>
+            <input type="text" v-model:value="altprimeiro" placeholder="O que mais?">
+            <button @click="addprimeiro">Adicionar</button>
+          </ul>
+          <!-- 3) Print all key-value pairs of the following object: {title: 'Lord of the Rings', author: 'J.R.R. Tolkiens', books: '3'}. Also print the index of each item. -->
+          <ul>
+            <li v-for="(livro, index) in segundo">{{index}} - 
+                <div v-for="(valor, chave) in livro">{{chave}}: {{valor}}</div>
+
+            </li>
+          </ul>
+          <!-- 4) Print the following object (only the values) and also create a nested loop for the array: {name: 'TESTOBJECT', data: [1.67, 1.33, 0.98, 2.21]} (hint: use v-for and v-if to achieve this) -->
+          <ul>
+            <li v-for="(ter, index) in terceiro">
+                {{ter.name}}
+                <div v-for="num in ter.data">
+                    {{num}}
+                </div>
+                
+            </li>
+          </ul>
+        </div>
+    
+
+        <script>
+        
+            var meuApp = new Vue({
+                el: "#exercise",
+                data:{
+                    mostrador: true,
+                    primeiro: ['arroz', 'feijao'],
+                    altprimeiro: "",
+                    segundo: [
+                        {title: 'Lord of the Rings', author: 'J.R.R. Tolkiens', books: '3'},
+                        {title: 'Lord of the Rings 2', author: 'J.R.R. Tolkiens 2', books: '4'},
+                        {title: 'Lord of the Rings 3', author: 'J.R.R. Tolkiens 3', books: '5'}
+                    ],
+                    terceiro: [
+                        {name: 'TESTOBJECT', data: [1.67, 1.33, 0.98, 2.21]},
+                        {name: 'TESTOBJECT2', data: [1.64, 1.33, 0.98, 2.21]},
+                        {name: 'TESTOBJECT3', data: [1.61, 1.33, 0.98, 2.21]}
+                    ]
+                },
+                methods:{
+                    addprimeiro: function(){
+                        this.primeiro.push(this.altprimeiro);
+                        this.altprimeiro = "";
+                    }
+                }
+
+
+
+            });
+        
+        </script>
+
+
+</body>
+</html>

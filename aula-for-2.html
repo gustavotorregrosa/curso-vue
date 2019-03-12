@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="" id="exercicio">
+        <ul>
+            <li v-for="(ing, i) in ingredientes">{{ ing }} - {{i}}</li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="(p, i) in pessoas">{{p.nome}} - {{p.idade}} - {{i}}</li>
+        </ul>
+
+        <hr>
+        <ul>
+            <li v-for="p in pessoas">
+                <div v-for="(valor, chave, index) in p">{{chave}}: {{valor}}</div>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li v-for="n in 15">{{n}}</li>
+        </ul>
+
+    </div>
+
+
+    <script>
+    var meuApp = new Vue({
+        el: "#exercicio",
+        data:{
+            ingredientes: ["arroz", "feijao", "ovo", "bife", "farinha"],
+            pessoas: [
+                {nome: 'Gustavo', idade: '34'},
+                {nome: 'Vitinho', idade: '30'},
+                {nome: 'Marcao', idade: '31'},
+            ]
+        }
+    });
+    </script>
+
+</body>
+</html>

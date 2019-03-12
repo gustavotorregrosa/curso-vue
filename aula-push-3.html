@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+<div id="exercicio">
+
+    <ul>
+        <li v-for="ingrediente in ingredientes" :objeto="ingrediente">{{ingrediente}}</li>
+    </ul>
+
+    <input type="text" v-model:value="adicionado">
+    <button @click="adicionar">Adicionar</button>
+
+
+</div>
+
+
+    <script>
+    
+        var meuApp = new Vue({
+            el: "#exercicio",
+            data:{
+                ingredientes: ['carne', 'ovo'],
+                adicionado: ""
+            },
+            methods:{
+                adicionar: function(){
+                    this.ingredientes.push(this.adicionado);
+                    this.adicionado = "";
+                }
+            }
+            
+        });
+    
+    </script>
+
+
+</body>
+</html>
