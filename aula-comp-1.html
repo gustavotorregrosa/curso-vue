@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+
+
+    <my-comp>
+        <p>OLa mundo 2</p>
+    </my-comp>
+
+    <hr>
+
+    <my-comp>
+            <p>OLa mundo 2</p>
+    </my-comp>
+
+    </div>
+
+
+    <script>
+
+        Vue.component('my-comp',{
+            data: function() {
+                return {
+                    nome: "felipe"
+                }
+            },
+            template: "<div><h2>modificado {{nome}} </h2> <button @click='mudaNome'>Mudar</button></div>",
+            methods: {
+                mudaNome: function(){
+                    this.nome = "Gustavo"
+                }
+            },
+        });
+
+        new Vue({
+            el: "#app"
+        });
+        
+
+    </script>
+
+
+    
+</body>
+</html>
