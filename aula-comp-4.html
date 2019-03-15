@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <div id="app">
+            <componente-pai></componente-pai>
+        </div>
+    </div>
+
+    <script type="text/x-template" id="componente-pai">
+        <div class="component">
+                <h1>Componente do usuario</h1>
+                <p>nome: {{nome}}</p>
+                <button class="btn btn-success btn-sm">Alterar</button>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <detalhes-do-usuario></detalhes-do-usuario>
+                    </div>
+                    <div class="col-sm-6">
+                        <edicao-do-usuario></edicao-do-usuario>
+                    </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script type="text/x-template" id="componente-detalhes">
+        <p>Ola mundo</p>
+    </script>
+
+    <script type="text/x-template" id="componente-edicao">
+        <div>
+            <p>Ola mundo 2</p>
+            <p>nome eh: {{nome}}</p>
+        </div>
+    </script>
+
+    <script>
+
+       
+
+        var compDetalhes = {
+            template: "#componente-detalhes"
+        }
+
+        var compEdicao = {
+            data: function(){
+                return{
+                    nome: "felipe"
+                }
+            },
+            template: "#componente-edicao"
+        }
+
+        var compPai = {
+            template: "#componente-pai",
+            data: function(){
+                return {
+                    nome: "gustavo"
+                }
+            },
+            components:{
+                'detalhes-do-usuario': compDetalhes,
+                'edicao-do-usuario': compEdicao
+            }
+        }
+
+        new Vue({
+            el: "#app",
+            data:{
+                nome: "gustavo"
+            },
+            components:{
+                'componente-pai': compPai
+            }
+
+        });
+
+
+       
+    </script>
+    
+</body>
+</html>
