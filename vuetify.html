@@ -9,15 +9,92 @@
   <div id="app">
     <v-app>
       <v-content>
-        <v-container>Hello world</v-container>
+
+          <v-navigation-drawer permanent dark>
+              <v-toolbar flat>
+                <v-list>
+                  <v-list-tile>
+                    <v-list-tile-title class="title">
+                      Application
+                    </v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-toolbar>
+          
+              <v-divider></v-divider>
+          
+              <v-list dense class="pt-0">
+                <v-list-tile
+                  v-for="item in items"
+                  :key="item.title"
+                  @click=""
+                >
+                  <v-list-tile-action>
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-tile-action>
+          
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-navigation-drawer>
+
+
+        <v-container>
+
+            <v-card>
+                <v-card-title class="headline font-weight-regular blue-grey white--text">Profile</v-card-title>
+                <v-card-text>
+                  <v-subheader class="pa-0">Where do you live?</v-subheader>
+                  <v-autocomplete
+                    v-model="model"
+                    :hint="!isEditing ? 'Click the icon to edit' : 'Click the icon to save'"
+                    :items="states"
+                    :readonly="!isEditing"
+                    :label="`State — ${isEditing ? 'Editable' : 'Readonly'}`"
+                    persistent-hint
+                    prepend-icon="mdi-city"
+                  >
+                    <template v-slot:append-outer>
+                      <v-slide-x-reverse-transition
+                        mode="out-in"
+                      >
+                        <v-icon
+                          :key="`icon-${isEditing}`"
+                          :color="isEditing ? 'success' : 'info'"
+                          @click="isEditing = !isEditing"
+                          v-text="isEditing ? 'mdi-check-outline' : 'mdi-circle-edit-outline'"
+                        ></v-icon>
+                      </v-slide-x-reverse-transition>
+                    </template>
+                  </v-autocomplete>
+                </v-card-text>
+              </v-card>
+
+
+        </v-container>
       </v-content>
-    </v-app>
+
+     
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
   <script>
-    new Vue({ el: '#app' })
+    new Vue({
+  el: '#app',
+  data () {
+    return {
+      items: [
+        { title: 'Home', icon: 'dashboard' },
+        { title: 'About', icon: 'question_answer' }
+      ],
+      right: null,
+      app: false
+    }
+  }
+})
   </script>
 </body>
 </html>

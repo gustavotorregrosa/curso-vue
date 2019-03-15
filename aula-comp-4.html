@@ -27,7 +27,7 @@
                         <detalhes-do-usuario></detalhes-do-usuario>
                     </div>
                     <div class="col-sm-6">
-                        <edicao-do-usuario></edicao-do-usuario>
+                        <edicao-do-usuario v-bind:nome="nome"></edicao-do-usuario>
                     </div>
             </div>
         </div>
@@ -54,11 +54,12 @@
         }
 
         var compEdicao = {
-            data: function(){
-                return{
-                    nome: "felipe"
-                }
-            },
+            // data: function(){
+            //     return{
+            //         nome: "felipe"
+            //     }
+            // },
+            props: ['nome'],
             template: "#componente-edicao"
         }
 
@@ -69,6 +70,7 @@
                     nome: "gustavo"
                 }
             },
+            
             components:{
                 'detalhes-do-usuario': compDetalhes,
                 'edicao-do-usuario': compEdicao
