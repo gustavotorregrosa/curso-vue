@@ -14,7 +14,7 @@
 
     <div class="container">
         <div id="app">
-            <componente-pai @nomeredefinido="funcTeste()">
+            <componente-pai @nomeredefinido="funcTeste">
 
             </componente-pai>
 
@@ -74,13 +74,13 @@ Vue.component('detalhes-do-usuario',{
             methods: {
                 alteraNome: function(){
                     // alert("teste");
-                    this.$emit('nomeredefinido');
+                    this.$emit('nomeredefinido','ola');
           
                 },
-                funcTesteA(){
-                    alert("ola mundo 3");
+                // funcTesteA(){
+                //     alert("ola mundo 3");
                     
-                }
+                // }
             },
             template: "#componente-edicao"
 
@@ -105,11 +105,17 @@ Vue.component('detalhes-do-usuario',{
 
     });
 
-    new Vue({
+    var minhainstancia = new Vue({
             el: "#app",
             data:{
                 nome: "gustavo"
             },
+
+            methods:{
+                funcTeste: function(){
+                    alert("teeeeste");
+                }
+            }
 
         });
 
