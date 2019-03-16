@@ -14,7 +14,7 @@
 
     <div class="container">
         <div id="app">
-            <componente-pai v-on:nomeredefinido="funcTeste" >
+            <componente-pai @nomeredefinido="funcTeste()">
 
             </componente-pai>
 
@@ -22,7 +22,7 @@
     </div>
 
     <script type="text/x-template" id="componente-pai">
-        <div class="component" v-on:nomeredefinido="funcTeste">
+        <div class="component">
             <h1>Componente do usuario</h1>
             <p>nome: {{nome}}</p>
         
@@ -42,7 +42,6 @@
 
     <script type="text/x-template" id="componente-detalhes">
         <div>
-            <p>Ola mundo 123</p>
             <p>nome invertido: {{ nomeinvertido() }}</p>
         </div>
     </script>
@@ -51,15 +50,14 @@
         <div>
             <p>Ola mundo 2</p>
             <button class="btn btn-success btn-sm" @click="alteraNome()">Alterar</button>
-            <p>nome eh: {{meunome}}</p>
+            <p>nome eh: {{ meunome }}</p>
         </div>
     </script>
 
     <script>
 
        
-
-        var compDetalhes = {
+Vue.component('detalhes-do-usuario',{
             template: "#componente-detalhes",
             props: ['meunome'],
             methods: {
@@ -67,21 +65,17 @@
                     return this.meunome.split("").reverse().join("");
                 }
             },
-        }
+        
 
-        var compEdicao = {
-            // data: function(){
-            //     return{
-            //         nome: "felipe"
-            //     }
-            // },
+        });
+
+    Vue.component('edicao-do-usuario',{
             props: ['meunome'],
             methods: {
-                alteraNome: function(e){
-                    // this.meunome = 'Ivan';
-                    // alert("ola mundo, teste 123");
-                    // this.$emit('nomeredefinido');
-                    // alert("ola mundo, ivan");
+                alteraNome: function(){
+                    // alert("teste");
+                    this.$emit('nomeredefinido');
+          
                 },
                 funcTesteA(){
                     alert("ola mundo 3");
@@ -89,9 +83,10 @@
                 }
             },
             template: "#componente-edicao"
-        }
 
-        var compPai = {
+    });    
+
+        Vue.component('componente-pai',{
             template: "#componente-pai",
             data: function(){
                 return {
@@ -102,25 +97,19 @@
                 mudaNome(){
                     this.nome = 'felipe'
                 },
-                funcTeste(){
-                    alert("ola mundo 2");
+                funcTeste(e){
+                    alert("deu certo");
                 }
             },
             
-            components:{
-                'detalhes-do-usuario': compDetalhes,
-                'edicao-do-usuario': compEdicao
-            }
-        }
 
-        var minhainstancia = new Vue({
+    });
+
+    new Vue({
             el: "#app",
             data:{
                 nome: "gustavo"
             },
-            components:{
-                'componente-pai': compPai
-            }
 
         });
 
