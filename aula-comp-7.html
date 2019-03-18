@@ -14,7 +14,7 @@
 
     <div class="container">
         <div id="app">
-            <componente-pai>
+            <componente-pai :alteraNome="funcTeste">
 
             </componente-pai>
 
@@ -33,7 +33,7 @@
                     <detalhes-do-usuario v-bind:meunome="nome"></detalhes-do-usuario>
                 </div>
                 <div class="col-sm-6">
-                    <edicao-do-usuario @lstnome="funcTeste()" v-bind:meunome="nome"></edicao-do-usuario>
+                    <edicao-do-usuario v-bind:meunome="nome"></edicao-do-usuario>
                 </div>
             </div>
         </div>
@@ -56,44 +56,8 @@
 
     <script>
 
-       
-Vue.component('detalhes-do-usuario',{
-            template: "#componente-detalhes",
-            props: ['meunome'],
-            methods: {
-                nomeinvertido(){
-                    return this.meunome.split("").reverse().join("");
-                }
-            },
-        
-
-        });
-
-    Vue.component('edicao-do-usuario',{
-            props: ['meunome'],
-            data: function(){
-                return {
-                    sobrenome: 'Torregrosa'
-                }
-            },
-            methods: {
-                alteraNome: function(){
-                    // alert("teste");
-                    // console.log(e);
-                    // event.target.value
-                    this.$emit('lstnome');
-          
-                },
-                // funcTesteA(){
-                //     alert("ola mundo 3");
-                    
-                // }
-            },
-            template: "#componente-edicao"
-
-    });    
-
-        Vue.component('componente-pai',{
+   
+Vue.component('componente-pai',{
             template: "#componente-pai",
             data: function(){
                 return {
@@ -104,24 +68,52 @@ Vue.component('detalhes-do-usuario',{
                 mudaNome(){
                     this.nome = 'felipe'
                 },
-                funcTeste(e){
-                    alert("deu certo");
+                funcTeste(){
+                    console.log("deu certo");
                 }
-            },
+            }
             
 
     });
+
+
+        
+Vue.component('detalhes-do-usuario',{
+            template: "#componente-detalhes",
+            props: ['meunome'],
+            methods: {
+                nomeinvertido(){
+                    return this.meunome.split("").reverse().join("");
+                }
+            }
+        });
+
+    Vue.component('edicao-do-usuario',{
+            props: {
+                meunome: {
+                    type: String
+                },
+                alteraNome: Function
+            },
+            
+            data: function(){
+                return {
+                    sobrenome: 'Torregrosa'
+                }
+            },
+            
+            template: "#componente-edicao"
+
+    });    
+
+
+
+   
 
     var minhainstancia = new Vue({
             el: "#app",
             data:{
                 nome: "gustavo"
-            },
-
-            methods:{
-                funcTeste: function(event){
-                    alert("teeeeste");
-                }
             }
 
         });

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div id="app">
+    <v-app id="inspire" dark>
+        <v-navigation-drawer
+          v-model="drawer"
+          clipped
+          fixed
+          app
+        >
+          <v-list dense>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon>dashboard</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Dashboard</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile @click="">
+              <v-list-tile-action>
+                <v-icon>settings</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>Settings</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-navigation-drawer>
+        <v-toolbar app fixed clipped-left>
+          <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+          <v-toolbar-title>EBD</v-toolbar-title>
+        </v-toolbar>
+        <v-content>
+          <v-container fluid fill-height>
+            <v-layout justify-center align-center>
+              <v-flex shrink>
+                  <componente-esquerda></componente-esquerda>
+                    <componente-direita></componente-direita>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-content>
+       
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script type="text/x-template" id="componente-esquerda">
+    <div class="component">
+        <v-sheet class="d-flex" height="424">
+                <v-btn @click="trocaNome()" color="success">Success</v-btn>
+                <v-btn @click="trocaNomeOutro()" color="primary">Success</v-btn>
+                <sheet-footer>{{nome}}</sheet-footer>
+        </v-sheet>
+    </div>
+    </script>
+
+    <script type="text/x-template" id="componente-direita">
+      <div class="component">
+          <v-sheet class="d-flex" height="424">
+                  <v-btn @click="trocaNome()" color="success">Success</v-btn>
+                  <sheet-footer>{{nome}}</sheet-footer>
+              </v-sheet>
+      </div>
+      <style scoped>
+        div{
+          background-color: red;
+        }
+      </style>
+      </script>
+
+  <script>
+
+        
+
+        Vue.component('componente-esquerda',{
+            template: "#componente-esquerda",
+            data: function() {
+                return {
+                    nome: "gustavo"
+                }
+            },
+            methods: {
+                trocaNome: function(){
+                    this.nome = "felipe";
+                },
+                trocaNomeOutro: function(){
+                  busPrincipal.$emit('lstalteranome');
+                }
+            },
+        });
+
+
+        var dirComp = Vue.component('componente-direita',{
+            template: "#componente-direita",
+            data: function() {
+                return {
+                    nome: "gustavo"
+                }
+            },
+            methods: {
+                trocaNome: function(){
+                    this.nome = "renato";
+                }
+            },
+            created(){
+              busPrincipal.$on('lstalteranome', function(){
+                alert("funciona");
+                // console.log(this.$data);
+                // dirComp.trocaNome();
+              });
+            }
+        });
+
+
+        var busPrincipal = new Vue();
+
+
+    new Vue({ el: '#app' })
+  </script>
+</body>
+</html>

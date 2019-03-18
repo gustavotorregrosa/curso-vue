@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        .quadrado{
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .verde{
+            background-color: green;
+        }
+
+        .azul{
+            background-color: blue;
+        }
+
+        .vermelho{
+            background-color: red;
+        }
+    
+    </style>
+
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <button @click="exibeVerde" class="btn btn-success btn-sm">Componente 1</button>
+                    <button @click="exibeAzul" class="btn btn-primary btn-sm">Componente 2</button>
+                    <button @click="exibeVermelho" class="btn btn-danger btn-sm">Componente 3</button>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <component :is="selecionado"></component>
+                <!-- <verde></verde> -->
+                <!-- <azul></azul> -->
+                <!-- <vermelho></vermelho> -->
+                <!-- <div class="quadrado verde"></div> -->
+                <!-- <div class="quadrado azul"></div> -->
+                <!-- <div class="quadrado vermelho"></div> -->
+                <citacao></citacao>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <link rel="import" href="citacao-template.html"> -->
+
+<script src="citacao.js"></script>
+
+
+
+<script type="text/x-template" id="verde">
+    <div class="componente">
+        <div class="quadrado verde"></div>
+    </div>
+</script>
+
+<script type="text/x-template" id="azul">
+    <div class="componente">
+        <div class="quadrado azul"></div>
+    </div>
+</script>
+
+<script type="text/x-template" id="vermelho">
+    <div class="componente">
+        <div class="quadrado vermelho"></div>
+    </div>
+</script>
+
+<script>
+
+
+    Vue.component('verde',{
+        template: "#verde"
+    });
+
+    Vue.component('azul',{
+        template: "#azul"
+    });
+
+    Vue.component('vermelho',{
+        template: "#vermelho"
+    });
+
+
+    new Vue({
+        el: "#app",
+        data: function(){
+            return {
+                selecionado: "verde"
+            }
+        },
+        methods:{
+            exibeVermelho: function(){
+                this.selecionado = "vermelho";
+            },
+            exibeAzul: function(){
+                this.selecionado = "azul";
+            },
+            exibeVerde: function(){
+                this.selecionado = "verde";
+            }
+        }
+    });
+
+</script>
+
+
+</body>
+</html>
