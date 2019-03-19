@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         
-        <myquote></myquote>
+        <myquote v-bind:quote="quote"></myquote>
 
 
     </div>
@@ -35,8 +35,8 @@
 
         Vue.component('myquote', {
             props: ['quote'],
-            // template: "#quote"
-            template: "<p>teste {{quote}}</p>"
+            template: "#quote"
+            // template: "<p>teste {{quote}}</p>"
         });
 
 
