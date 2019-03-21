@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        .quote{
+            cursor: pointer;
+        }
+
+        .quote:hover{
+            background-color: lightgreen;
+        }
+    </style>
+
+    <div id="app">
+        <div class="container">
+            <newquote></newquote>
+            <quotegrid v-bind:quotes="quotes"></quotegrid>
+        </div>
+    </div>
+
+
+    <script type="text/x-template" id="newquote">
+        <div class="row">
+            <form action="">
+                <div class="col-6">
+                    <label for="">Quote</label>
+                    <textarea name="" id="" cols="30" rows="10" v-model="quote"></textarea>
+                    <button v-on:click.prevent="createNew()" type="submit" class="btn btn-primary">Criar</button>
+                </div>
+            </form>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="indquote">
+        <div class="col-4 quote" style="min-height: 6em; border: 1px solid black;">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <slot></slot>
+                    
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+
+    <script type="text/x-template" id="quotegrid">
+        <div class="row">
+            <appquote v-for="quote in quotes">{{quote}}</appquote>
+        </div>
+    </script>
+
+
+    <script>
+
+        var newquote = {
+            template: "#newquote",
+            data: function(){
+                return {
+                    quote: ''
+                }
+            },
+            methods: {
+                createNew: function(){
+                    alert("ola");
+                }
+            },
+        }
+
+        var indquote = {
+            template: "#indquote"
+        }
+
+     
+
+        var quotegrid = {
+            template: "#quotegrid",
+            props: ['quotes'],
+            components: {
+                appquote: indquote
+            }
+        };
+
+        var meuApp = new Vue({
+            el: "#app",
+            data: function(){
+                return{
+                    quotes: [
+                        'Just a quote to see something'
+                    ],
+                    maxQuotes: 10
+                }
+            },
+            components:{
+                quotegrid: quotegrid,
+                newquote: newquote
+            }
+            
+        });
+    </script>
+    
+</body>
+</html>
