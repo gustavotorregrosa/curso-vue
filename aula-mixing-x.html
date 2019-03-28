@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script src="vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <primeiro-filtro></primeiro-filtro>
+          </div>
+          <div class="col-md-6">
+            <segundo-filtro></segundo-filtro>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/x-template" id="primeiro-filtro">
+    <div>
+        <h3>Primeiro filtro</h3>
+        <input type="text" v-model="textoFiltro">
+        <ul>
+            <li v-for="fruta in filtroFrutas">{{ fruta }}</li>
+        </ul>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="segundo-filtro">
+    <div>
+        <h3>Segundo filtro</h3>
+        <input type="text" v-model="textoFiltro">
+        <ul>
+            <li v-for="fruta in filtroFrutas">{{ fruta }}</li>
+        </ul>
+    </div>
+  </script>
+
+  <script>
+    var meuMixin = {
+      data: function() {
+        return {
+          frutas: ["Banana", "Maçã", "Goiaba", "Pera", "Uva", "Lichia "],
+          textoFiltro: ''
+        };
+      },
+      computed:{
+          filtroFrutas(){
+              return this.frutas.filter((element) => {
+                  return element.match(this.textoFiltro);
+              });
+          }
+      }
+    };
+
+    Vue.component("primeiro-filtro", {
+      template: "#primeiro-filtro",
+      mixins: [meuMixin]
+      
+    });
+
+    Vue.component("segundo-filtro", {
+      template: "#segundo-filtro",
+      mixins: [meuMixin]
+    });
+
+    var meuapp = new Vue({
+      el: "#app",
+     
+    });
+  </script>
+</html>
