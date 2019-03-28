@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+    <script src="vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <componente-central></componente-central>
+    </div>
+  </body>
+
+  <script type="text/x-template" id="componente-central">
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Built-in Directives</h3>
+                    <p v-text="'ola mundo'"></p>
+                    <p v-html="'<h3>ola mundo</h3>'"></p>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-6">
+                        <h3>Custom Directives</h3>
+                        <p v-destaque:background.delayed.another="'red'">ola mundo</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+  </script>
+
+  <script>
+    Vue.component("componente-central", {
+      template: "#componente-central",
+      directives: {
+        destaque: {
+          bind(el, binding, vnode) {
+            // el.style.backgroundColor = 'green';
+            // el.style.backgroundColor = binding.value;
+            var delay = 0;
+            if (binding.modifiers["delayed"]) {
+              delay = 2000;
+            }
+
+            setTimeout(function() {
+              if (binding.arg == "background") {
+                el.style.backgroundColor = binding.value;
+              } else {
+                el.style.color = binding.value;
+              }
+            }, delay);
+          }
+        }
+      }
+    });
+
+    var meuapp = new Vue({
+      el: "#app"
+    });
+  </script>
+</html>
