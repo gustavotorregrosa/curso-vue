@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <style>
+            .fade-enter{
+                opacity: 0;
+            }
+
+            .fade-enter-active{
+                transition: opacity 1s;
+            }
+
+            .fade-leave{
+
+            }
+
+            .fade-leave-active{
+                transition: opacity 1s;
+                opacity: 0;
+            }
+
+            .slide-enter{
+                opacity: 0;
+            }
+
+            .slide-enter-active{
+                animation: slide-in 1s ease-in-out forwards;
+                transition: opacity 0.5s;
+            }
+
+            .slide-leave{
+
+            }
+
+            .slide-leave-active{    
+                animation: slide-out 1s ease-in-out forwards;
+                transition: opacity 1s;
+                opacity: 0;
+            }
+
+            @keyframes slide-in{
+                from{
+                    transform: translateY(20px);
+                }
+                to{
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes slide-out{
+                from{
+                    transform: translateY(0);
+                }
+                to{
+                    transform: translateY(20px);
+                }
+              
+            }
+    
+    </style>
+
+
+
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <h2>Animações</h2>
+                <hr>
+                <button @click="show = !show" class="btn btn-primary btn-sm">Show alert</button>
+                <br><br>
+                <transition name="slide" appear type="animation">
+                    <div v-if="show" class="alert alert-info">Uma mensagem</div>
+                </transition>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+    var meuapp = new Vue({
+        el: "#app",
+        data: function(){
+            return {
+                show: true
+            }
+        }
+    });
+</script>
+
+
+</html>
