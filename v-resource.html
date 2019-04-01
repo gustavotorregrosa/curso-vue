@@ -37,6 +37,11 @@
 
   <script>
     Vue.use(VueResource);
+    // Vue.http.interceptors.push((request, next) => {
+    //   request.method = 'PUT';
+    //   console.log(request);
+    //   next();
+    // });
     var meuapp = new Vue({
       el: "#app",
       data(){
@@ -50,7 +55,7 @@
       methods:{
           cadastrar(){
             //   console.log(this.user);
-            this.$http.post('https://www.hexa-digital.com', { teste: "123"}, {method: "post"});
+            this.$http.post('https://www.hexa-digital.com', { teste: "123"});
           }
       }
     });
