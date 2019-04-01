@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <script src="vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <style>
+            .fade-enter{
+                opacity: 0;
+            }
+
+            .fade-enter-active{
+                transition: opacity 1s;
+            }
+
+            .fade-leave{
+
+            }
+
+            .fade-leave-active{
+                transition: opacity 1s;
+                opacity: 0;
+            }
+
+            .slide-enter{
+                opacity: 0;
+            }
+
+            .slide-enter-active{
+                animation: slide-in 1s ease-in-out forwards;
+                transition: opacity 0.5s;
+            }
+
+            .slide-leave{
+
+            }
+
+            .slide-leave-active{    
+                animation: slide-out 1s ease-in-out forwards;
+                transition: opacity 1s;
+                opacity: 0;
+            }
+
+            @keyframes slide-in{
+                from{
+                    transform: translateY(20px);
+                }
+                to{
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes slide-out{
+                from{
+                    transform: translateY(0);
+                }
+                to{
+                    transform: translateY(20px);
+                }
+              
+            }
+    
+    </style>
+
+
+
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                <h2>Animações</h2>
+                <hr>
+                <select v-model="alertAnimation">
+                    <option value="fade">Fade</option>                    
+                    <option value="slide">Slide</option>
+                </select>
+                <button @click="show = !show" class="btn btn-primary btn-sm">Show alert</button>
+                <br><br>
+                <transition :name="alertAnimation" appear mode="out-in">
+                    <div v-if="show" class="alert alert-info" key="info">Uma mensagem</div>
+                    <div v-else class="alert alert-info" key="warning">Outra mensagem</div>
+                </transition>
+               
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container">
+            <div class="row">
+                <h2>Remocao de elemento</h2>
+                <button @click="load = !load" class="btn btn-primary btn-sm">Load/ Remove</button>
+            </div>
+            <br><br>
+            <transition
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @after-enter="afterEnter"
+                @enter-cancelled="enterCancelled"
+
+                @before-leave="beforeLeave"
+                @leave="leave"
+                @after-leave="afterLeave"
+                @leave-cancelled="leaveCancelled"
+
+                :css="usacss"
+
+            >
+                <div style="width: 100px; height: 100px; background-color: lightcoral" v-if="load"></div>
+            </transition>
+        </div>
+
+    </div>
+    
+</body>
+
+<script>
+    var meuapp = new Vue({
+        el: "#app",
+        data: function(){
+            return {
+                show: true,
+                alertAnimation: "fade",
+                load: false,
+                usacss: false,
+                elementWidth: 100
+            }
+        },
+        methods: {
+            beforeEnter(el){
+                console.log('before enter');
+                this.elementWidth = 100;
+                el.style.width = this.elementWidth + 'px';
+            },
+            enter(el, done){
+                console.log('funcao enter');
+                let round = 1;
+                const interval = setInterval(() => {
+                    el.style.width = (this.elementWidth + round*10) + 'px';
+                    round++;
+                    if(round > 20){
+                        clearInterval(interval);
+                        done();
+                    }
+                }, 20);
+                
+            },
+            afterEnter(el){
+                console.log('after enter');
+            },
+            enterCancelled(el){
+                console.log('enter cancelled');
+            },
+            beforeLeave(el){
+                console.log('before leave');
+                this.elementWidth = 300;
+                el.style.width = this.elementWidth + 'px';
+            },
+            leave(el, done){
+                console.log('leave...');
+                let round = 1;
+                const interval = setInterval(() => {
+                    el.style.width = (this.elementWidth - round*10) + 'px';
+                    round++;
+                    if(round > 20){
+                        clearInterval(interval);
+                        done();
+                    }
+                }, 20);
+            },
+            afterLeave(el){
+                console.log('after leave');
+            },
+            leaveCancelled(el){
+                console.log('cancelado');
+            }
+        }
+    });
+</script>
+
+
+</html>
