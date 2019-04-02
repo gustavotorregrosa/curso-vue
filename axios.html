@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="enviar" class="btn btn-primary btn-sm">Enviar</button>
+    </div>
+</body>
+
+<script>
+    var meuapp = new Vue({
+        el: "#app",
+        methods: {
+            enviar(){
+                // console.log('teste 123');
+                axios.post('https://visie.com.br',{
+                    nome: "gustavo",
+                    sobrenome: "torregrosa"
+                });
+                // axios.get('https://www.visie.com.br');
+            }
+        },
+    });
+</script>
+</html>
