@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
-    <title>Document</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 
-  <body>
-    <div id="app">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h2>Routing</h2>
-            <componente-header></componente-header>
-            <br /><br />
-            <router-view></router-view>
-          </div>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Routing</h2>
+          <componente-header></componente-header>
+          <br /><br />
+          <router-view></router-view>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 
-  <script type="text/x-template" id="componente-header">
+<script type="text/x-template" id="componente-header">
     <ul class="nav nav-pills">
         <li class="nav-item">
             <router-link class="nav-link" active-class="active" to="/" exact>Home</router-link>
@@ -42,6 +39,14 @@
       </ul>
   </script>
 
+<script type="text/x-template" id="componente-editar">
+    <div>
+      <input type="text">  
+
+    </div>
+  </script>
+
+
   <script type="text/x-template" id="componente-home">
     <div>
         <h3>Home</h3>
@@ -51,15 +56,17 @@
   </script>
 
 
-
-  <script type="text/x-template" id="userdetail">
+<script type="text/x-template" id="userdetail">
     <div>
       Detalhe do usuario {{ $route.params.id }}
+      <br>
+      <!-- <router-link class="btn btn-success btn-sm" tag="button" :to="'/usuarios/' + $route.params.id + '/edit/'">Editar</router-link> -->
+      <router-link class="btn btn-success btn-sm" tag="button" :to="{ name: 'edicaousuario', params: {id: $route.params.id }}">Editar</router-link>
     </div>
    
   </script>
 
-  <script type="text/x-template" id="userstart">
+<script type="text/x-template" id="userstart">
     <ul>
       <router-link tag="li" to="/usuarios/1">Gustavo</router-link>
       <router-link tag="li" to="/usuarios/2">Marcos</router-link>
@@ -68,7 +75,7 @@
   </ul>
   </script>
 
-  <script type="text/x-template" id="componente-usuarios">
+<script type="text/x-template" id="componente-usuarios">
     <div>
             <h3>Usuarios</h3>
 
@@ -83,68 +90,77 @@
     </div>
   </script>
 
-  <script>
-    Vue.use(VueRouter);
+<script>
+  Vue.use(VueRouter);
 
-    var cuserdetail = Vue.component('user-detail', {
-      template: "#userdetail"
-    });
 
-    var cuserstart = Vue.component('user-start',{
-      template: "#userstart"
-    });
+  var cuseredit = Vue.component('user-edit', {
+    template: "#componente-editar"
+  });
 
-    var cheader = Vue.component('componente-header',{
-        template: "#componente-header"
-    });
+  var cuserdetail = Vue.component('user-detail', {
+    template: "#userdetail"
+  });
 
-    var chome = Vue.component("componente-home", {
-      template: "#componente-home"
-    });
+  var cuserstart = Vue.component('user-start', {
+    template: "#userstart"
+  });
 
-    var cusuarios = Vue.component("componente-usuarios", {
-      template: "#componente-usuarios",
-      methods: {
-          voltaHome() {
-              this.$router.push('/');
-          }
-      },
-    });
+  var cheader = Vue.component('componente-header', {
+    template: "#componente-header"
+  });
 
-    var minhasrotas = [
-      {
-        path: "",
-        component: chome
-      },
-      {
-        path: "/usuarios",
-        component: cusuarios,
-        children: [
-          {
-            path: "",
-            component: cuserstart
-          },
-          {
-            path: ":id",
-            component: cuserdetail
-          }
-          // {
-          //   path: ":id/edit",
-          //   component: UserEdit
-          // }
-        ]
-      },
-      
-    ];
+  var chome = Vue.component("componente-home", {
+    template: "#componente-home"
+  });
 
-    var roteador = new VueRouter({
-      routes: minhasrotas
-    });
+  var cusuarios = Vue.component("componente-usuarios", {
+    template: "#componente-usuarios",
+    methods: {
+      voltaHome() {
+        // this.$router.push('/');
+        this.$router.push({ name:'home' });
+      }
+    },
+  });
 
-    var meuapp = new Vue({
-      el: "#app",
-      router: roteador,
-     
-    });
-  </script>
+  var minhasrotas = [
+    {
+      path: "",
+      component: chome,
+      name: "home"
+    },
+    {
+      path: "/usuarios",
+      component: cusuarios,
+      children: [
+        {
+          path: "",
+          component: cuserstart
+        },
+        {
+          path: ":id",
+          component: cuserdetail
+        },
+        {
+          path: ":id/edit",
+          component: cuseredit,
+          name: 'edicaousuario'
+        }
+      ]
+    },
+
+  ];
+
+  var roteador = new VueRouter({
+    routes: minhasrotas
+  });
+
+  var meuapp = new Vue({
+    el: "#app",
+    router: roteador,
+
+  });
+</script>
+
 </html>
