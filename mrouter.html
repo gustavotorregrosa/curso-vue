@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Routing</h2>
+          <!-- <componente-header></componente-header> -->
+          <br /><br />
+          <router-view name="header-top"></router-view>
+          <router-view></router-view>
+          <router-view name="header-bottom"></router-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="text/x-template" id="componente-header">
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <router-link class="nav-link" active-class="active" to="/" exact>Home</router-link>
+        </li>
+        <li class="nav-item">
+                <router-link class="nav-link" active-class="active" to="/usuarios" exact>Usuarios</router-link>
+          </li>
+      </ul>
+  </script>
+
+<script type="text/x-template" id="componente-editar">
+    <div>
+      <input type="text">
+      <p>Locale: {{ $route.query.locale }}</p>
+      <p>Q: {{ $route.query.q }}</p>
+
+    </div>
+  </script>
+
+
+  <script type="text/x-template" id="componente-home">
+    <div>
+        <h3>Home</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum scelerisque volutpat. Curabitur lacinia rutrum dui a viverra.</p>
+
+    </div>
+  </script>
+
+
+<script type="text/x-template" id="userdetail">
+    <div>
+      Detalhe do usuario {{ $route.params.id }}
+      <br>
+      <!-- <router-link class="btn btn-success btn-sm" tag="button" :to="'/usuarios/' + $route.params.id + '/edit/'">Editar</router-link> -->
+      <router-link class="btn btn-success btn-sm" tag="button" :to="{ name: 'edicaousuario', params: {id: $route.params.id }, query: { locale: 'en', q: 100 }}">Editar</router-link>
+    </div>
+   
+  </script>
+
+
+
+  <script type="text/x-template" id="componente-bottom">
+  <div>
+    <h3>Esse eh o bottom</h3>
+  </div>
+  </script>
+
+<script type="text/x-template" id="userstart">
+    <ul>
+      <router-link tag="li" to="/usuarios/1">Gustavo</router-link>
+      <router-link tag="li" to="/usuarios/2">Marcos</router-link>
+      <router-link tag="li" to="/usuarios/3">Peka</router-link>
+      <router-link tag="li" to="/usuarios/4">Renato</router-link>
+  </ul>
+  </script>
+
+<script type="text/x-template" id="componente-usuarios">
+    <div>
+        <h3>Usuarios</h3>
+        <router-view></router-view>
+
+        <br>
+        <button @click="voltaHome()" class="btn btn-success btn-sm">Voltar para Home</button>
+    </div>
+  </script>
+
+<script>
+  Vue.use(VueRouter);
+
+  var cuseredit = Vue.component('user-edit', {
+    template: "#componente-editar"
+  });
+
+  var cuserdetail = Vue.component('user-detail', {
+    template: "#userdetail"
+  });
+
+  var cuserstart = Vue.component('user-start', {
+    template: "#userstart"
+  });
+
+  var cheader = Vue.component('componente-header', {
+    template: "#componente-header"
+  });
+
+  var chome = Vue.component("componente-home", {
+    template: "#componente-home"
+  });
+
+  var cbottom = Vue.component("componente-bottom", {
+    template: "#componente-bottom"
+  });
+
+  var cusuarios = Vue.component("componente-usuarios", {
+    template: "#componente-usuarios",
+    methods: {
+      voltaHome() {
+        // this.$router.push('/');
+        this.$router.push({ name:'home' });
+      }
+    },
+  });
+
+  var minhasrotas = [
+    {
+      path: "",
+      // component: chome,
+      name: "home",
+      components: {
+        default: chome,
+        'header-top': cheader
+      }
+    },
+    {
+      path: "/usuarios",
+      // component: cusuarios,
+      components:{
+        default: cusuarios,
+        'header-bottom': cbottom
+      },
+      children: [
+        {
+          path: "",
+          component: cuserstart
+        },
+        {
+          path: ":id",
+          component: cuserdetail
+        },
+        {
+          path: ":id/edit",
+          component: cuseredit,
+          name: 'edicaousuario'
+        }
+      ]
+    },
+    {
+      path: '/redirect-me',
+      redirect: '/usuarios'
+    },
+    {
+      path: '*',
+      redirect: '/'
+    }
+
+  ];
+
+  var roteador = new VueRouter({
+    routes: minhasrotas
+  });
+
+  var meuapp = new Vue({
+    el: "#app",
+    router: roteador,
+
+  });
+</script>
+
+</html>
